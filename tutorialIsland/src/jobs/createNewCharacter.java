@@ -1,5 +1,8 @@
 package jobs;
 
+import tutorialIsland.TutotialIsland;
+import tutorialIsland.TutotialIsland.States;
+
 import java.awt.List;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -78,18 +81,22 @@ public class createNewCharacter extends Node{
 	String age = new String("22");
 	Widget frontPage = new Widget(WIDGETS.CREATE_ACCOUNT.id);	
 	Widget createAccount = new Widget(WIDGETS.EMAIL_ADDRESS.id);
+	TutotialIsland state = new TutotialIsland();
 
 	private int count = 0;
 	
 	@Override
 	public boolean activate() {
 		// TODO Auto-generated method stub
-		if(!Game.isLoggedIn())
+		if(!Game.isLoggedIn()&& state.currentState== TutotialIsland.States.SIGNUP_NEW_CHARACTER)
 		{
 			return true;
 		}
 		else
-			return false;
+		{
+			state.setCurrentState(tutorialIsland.TutotialIsland.States.SELECT_CHARACTER);
+			return false;			
+		}
 	}
 
 	@Override

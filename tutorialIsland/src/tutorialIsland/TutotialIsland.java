@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import jobs.createNewCharacter;
+import jobs.selectCharacter;
 
 import org.powerbot.core.event.listeners.PaintListener;
 import org.powerbot.core.script.ActiveScript;
@@ -20,6 +21,22 @@ public class TutotialIsland extends ActiveScript implements PaintListener {
 
         private final List<Node> jobsCollection = Collections.synchronizedList(new ArrayList<Node>());
         private Tree jobContainer = null;
+        public static enum States{
+        	SIGNUP_NEW_CHARACTER,
+        	SELECT_CHARACTER,
+        	MINI_GAME;
+        }
+        
+        public static States currentState = States.SIGNUP_NEW_CHARACTER;
+        
+		public States getCurrentState()
+		{
+			return this.currentState;
+		}
+		public static void setCurrentState(final States state)
+		{
+			currentState = state;
+		}
 
         public final void provide(final Node... jobs) {
                 for (final Node job : jobs) 	{
@@ -36,6 +53,7 @@ public class TutotialIsland extends ActiveScript implements PaintListener {
 
         @Override
         public void onStart() {
+        		provide(new selectCharacter());
                 provide(new createNewCharacter());
         }
 
@@ -58,5 +76,7 @@ public class TutotialIsland extends ActiveScript implements PaintListener {
 			// TODO Auto-generated method stub
 			
 		}
+		
+
 
 }
